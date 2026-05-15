@@ -84,12 +84,12 @@
               <?= $data['contentHtml'] ?? '' ?>
               <div class="d-flex justify-content-between mt-4">
                 <?php if (!empty($data['prevUrl'])): ?>
-                  <a href="<?php echo $data['prevUrl']; ?>" class="btn btn-outline-primary px-4">&laquo; Zurück</a>
+                  <a href="<?php echo $data['prevUrl']; ?>" class="btn btn-outline-primary px-4">&laquo; <?= $data['prevLabel'] ?></a>
                 <?php else: ?>
                   <span></span>
                 <?php endif; ?>
                 <?php if (!empty($data['nextUrl'])): ?>
-                  <a href="<?php echo $data['nextUrl']; ?>" class="btn btn-outline-primary px-4">Weiter &raquo;</a>
+                  <a href="<?php echo $data['nextUrl']; ?>" class="btn btn-outline-primary px-4"><?= $data['nextLabel'] ?> &raquo;</a>
                 <?php endif; ?>
               </div>
             <?php endif; ?>

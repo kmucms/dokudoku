@@ -94,6 +94,8 @@ class DokuDoku {
       $data['contentHtml'] = $pv->getDocHtml($doc, $flatMap);
       $data['prevUrl'] = $pt->getPrevUrl($doc);
       $data['nextUrl'] = $pt->getNextUrl($doc);
+      $data['prevLabel'] = $pt->getPrevLabel($doc);
+      $data['nextLabel'] = $pt->getNextLabel($doc);
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     } else {
       $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);

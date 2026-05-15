@@ -113,6 +113,27 @@ class DocPageTree
         return '';
     }
 
+    
+    public function getPrevLabel(string $mdFile): string
+    {
+        $urls = array_keys($this->flatMap);
+        $index = array_search($mdFile, $urls);
+        if ($index !== false && $index > 0) {
+            return $urls[$index - 1];
+        }
+        return '';
+    }
+
+    public function getNextLabel(string $mdFile): string
+    {
+        $urls = array_keys($this->flatMap);
+        $index = array_search($mdFile, $urls);
+        if ($index !== false && $index < count($urls) - 1) {
+            return $urls[$index + 1];
+        }
+        return '';
+    }
+    
     /**
      * @param string $search
      * @return array
