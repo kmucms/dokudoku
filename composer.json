@@ -1,0 +1,13 @@
+{
+	"version" : "1.0.0",
+	"require" : {
+		"parsedown/parsedown" : "^1.7"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"kmucms\\Dokudoku\\" : "src/Dokudoku/"
+		}
+	},
+	"name" : "kmucms/dokudoku",
+	"description" : "dokumenting software architecture"
+}
