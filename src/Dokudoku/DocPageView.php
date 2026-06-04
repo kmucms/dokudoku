@@ -12,17 +12,10 @@ class DocPageView {
     $this->mdDocsPath = rtrim($mdDocsPath, '/\\');
   }
 
-  public function getDocHtml(string $mdFile, array $flatMap = []): string {
-    if (empty($mdFile)) {
-      return HtmlBasics::getView('welcome');
-    }
-    $filePath = isset($flatMap[$mdFile]) ? $flatMap[$mdFile] : ($this->mdDocsPath . DIRECTORY_SEPARATOR . $mdFile);
-    if (!is_file($filePath)) {
-      return HtmlBasics::getView('notfound');
-    }
+  public function getDocHtml(string $filePath): string {
     $parsedown = new Parsedown();
     $md = file_get_contents($filePath);
-    $md = $this->addMainHeader($md, pathinfo($mdFile, PATHINFO_FILENAME));
+    $md = $this->addMainHeader($md, pathinfo($filePath, PATHINFO_FILENAME));
     $md = $this->addHeaderNumbersToMd($md);
     $contentHtml = $parsedown->text($md);
     $contentHtml = $this->addHeaderAnchors($contentHtml);
@@ -114,9 +107,10 @@ class DocPageView {
       }
     }
     if (!$hasMainHeading) {
-      array_unshift($lines, '# ' . $filename);
+      $filename = preg_replace('/^\d+_?/', '', $filename);
+      $md = '# ' . $filename."\n" . $md;
     }
-    return implode("\n", $lines);
+    return $md;
   }
 
   /**

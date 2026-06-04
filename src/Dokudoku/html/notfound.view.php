@@ -1,2 +1,2 @@
 <?php /* @var array $data */ ?>
-<h1>Datei nicht gefunden oder kein gültiger Pfad</h1>
+<h1>File not found.</h1>

@@ -72,7 +72,7 @@ class DokuDoku {
     $search = $_GET['search'] ?? '';
 
     $data['data'] = $this->data;
-
+    
     if ($search !== '') {
       $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
       $data['type'] = 'search';
@@ -91,7 +91,14 @@ class DokuDoku {
       $data['type'] = 'doc';
       $data['tocHtml'] = $pv->getTocHtml($doc, $flatMap);
       $data['treeArray'] = $pt->getTree($doc);
-      $data['contentHtml'] = $pv->getDocHtml($doc, $flatMap);
+      
+      $filePath = isset($flatMap[$doc]) ? $flatMap[$doc] : ($this->mdDocsPath . DIRECTORY_SEPARATOR . $doc);
+      if (!is_file($filePath)) {
+        $data['contentHtml'] = HtmlBasics::getView('notfound');
+      }else{
+        $data['contentHtml'] = $pv->getDocHtml($filePath);  
+      }
+      
       $data['prevUrl'] = $pt->getPrevUrl($doc);
       $data['nextUrl'] = $pt->getNextUrl($doc);
       $data['prevLabel'] = $pt->getPrevLabel($doc);
