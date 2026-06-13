@@ -91,30 +91,8 @@ class DocPageTree
     {
         return $this->flatMap;
     }
-
-
-    public function getPrevUrl(string $mdFile): string
-    {
-        $urls = array_keys($this->flatMap);
-        $index = array_search($mdFile, $urls);
-        if ($index !== false && $index > 0) {
-            return '?doc='.$urls[$index - 1];
-        }
-        return '';
-    }
-
-    public function getNextUrl(string $mdFile): string
-    {
-        $urls = array_keys($this->flatMap);
-        $index = array_search($mdFile, $urls);
-        if ($index !== false && $index < count($urls) - 1) {
-            return '?doc='.$urls[$index + 1];
-        }
-        return '';
-    }
-
     
-    public function getPrevLabel(string $mdFile): string
+    public function getPrevDoc(string $mdFile): string
     {
         $urls = array_keys($this->flatMap);
         $index = array_search($mdFile, $urls);
@@ -124,7 +102,7 @@ class DocPageTree
         return '';
     }
 
-    public function getNextLabel(string $mdFile): string
+    public function getNextDoc(string $mdFile): string
     {
         $urls = array_keys($this->flatMap);
         $index = array_search($mdFile, $urls);

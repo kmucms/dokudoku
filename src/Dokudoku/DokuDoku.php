@@ -5,7 +5,7 @@ namespace kmucms\Dokudoku;
 class DokuDoku {
 
   private array $data = [
-    'mdDocsPath' => '',
+    'mdDocsPaths' => [],
     'urlPrefix' => '/',
     'brandName' => '',
     'brandUrl' => '',
@@ -46,7 +46,11 @@ class DokuDoku {
   ];
 
   public function setMdDocsPath(string $val): void {
-    $this->data['mdDocsPath'] = $val;
+    $this->setMdDocsPathEnv($val, '');
+  }
+  
+  public function setMdDocsPathEnv(string $path, string $name, array $options=[] ): void {
+    $this->data['mdDocsPaths'][$name] = ['path'=>$path, 'options'=>$options, 'name'=>$name];
   }
 
   public function setUrlPrefix(string $val): void {
@@ -64,14 +68,24 @@ class DokuDoku {
   }
 
   public function go(): void {
-
-    $mdDocsPath = $this->data['mdDocsPath'] ?? $_SERVER['DOCUMENT_ROOT'] . '/docs/';
-    $urlPrefix = $this->data['urlPrefix'] ?? '/';
-
     $doc = $_GET['doc'] ?? '';
     $search = $_GET['search'] ?? '';
+    $env = $_GET['env'] ?? '';
+    $showHelpDoc = isset($_GET['help']);
+    
+    if($showHelpDoc || $env == 'dokudokuhelp'){
+        $env = 'dokudokuhelp';
+        $this->setMdDocsPathEnv(__DIR__.'/md/', $env);
+    }
+    
+    
+    $mdDocsPath = $this->data['mdDocsPaths'][$env]['path']  ?? $_SERVER['DOCUMENT_ROOT'] . '/docs/';
+    $urlPrefix = $this->data['urlPrefix'] ?? '/';
+    $links = new Links($env);
 
     $data['data'] = $this->data;
+    $data['env'] = $env;
+    $data['links'] = $links;
     
     if ($search !== '') {
       $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
@@ -87,7 +101,6 @@ class DokuDoku {
       $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
       $pv = new \kmucms\Dokudoku\DocPageView($mdDocsPath, $urlPrefix);
       $flatMap = $pt->getFlatMap();
-      $flatMap['dokudoku_edit_help'] = __DIR__ . '/md/textfeatures.md';
       $data['type'] = 'doc';
       $data['tocHtml'] = $pv->getTocHtml($doc, $flatMap);
       $data['treeArray'] = $pt->getTree($doc);
@@ -99,10 +112,8 @@ class DokuDoku {
         $data['contentHtml'] = $pv->getDocHtml($filePath);  
       }
       
-      $data['prevUrl'] = $pt->getPrevUrl($doc);
-      $data['nextUrl'] = $pt->getNextUrl($doc);
-      $data['prevLabel'] = $pt->getPrevLabel($doc);
-      $data['nextLabel'] = $pt->getNextLabel($doc);
+      $data['prevDoc'] = $pt->getPrevDoc($doc);
+      $data['nextDoc'] = $pt->getNextDoc($doc);
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     } else {
       $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);

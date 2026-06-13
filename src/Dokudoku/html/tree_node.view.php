@@ -1,4 +1,8 @@
 <?php
+
+/** @var \kmucms\Dokudoku\Links $links */
+$links = $data['links'];
+
 // Template für einen einzelnen Knoten im Seitenbaum
 $node = $data['node'];
 $level = $data['level'] ?? 0;
@@ -26,13 +30,13 @@ use kmucms\Dokudoku\HtmlBasics;
                 <ul class="list-group ps-<?= ($level + 1) * 2 ?>">
                     <?php foreach ($node['children'] as $i => $child):
                         $childData = ['node' => $child, 'level' => $level + 1, 'parentId' => $id, 'index' => $i];
-                        echo HtmlBasics::getView('tree_node', $childData);
+                        echo HtmlBasics::getView('tree_node', $childData + ['links'=>$links]);
                     endforeach; ?>
                 </ul>
             <?php endif; ?>
         </div>
     <?php elseif ($node['type'] === 'file'): ?>
-        <a href="?doc=<?= rawurlencode($node['url']) ?>" class="text-decoration-none d-block w-100 h-100" style="color:inherit;">
+        <a href="<?= htmlspecialchars($links->getDoc($node['url']??''), ENT_QUOTES) ?>" class="text-decoration-none d-block w-100 h-100" style="color:inherit;">
             <?= htmlspecialchars($node['name']) ?>
         </a>
     <?php endif; ?>

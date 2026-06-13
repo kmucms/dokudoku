@@ -1,3 +1,9 @@
+<?php
+
+/** @var \kmucms\Dokudoku\Links $links */
+$links = $data['links'];
+?>
+
 <!DOCTYPE html>
 <html lang="de" >
   <head>
@@ -37,7 +43,7 @@
         <a class="navbar-brand fw-bold" href="<?= $data['data']['urlPrefix'] ?>"><i class="bi bi-journal-bookmark"></i> </a>
         <div class="d-flex ms-auto gap-2">
           <?php if ($data['data']['showHelp']): ?>
-            <a class="btn btn-secondary" href="?doc=dokudoku_edit_help"><i class="bi bi-patch-question-fill"></i></a>
+            <a class="btn btn-secondary" href="<?=$links->getHelp()?>"><i class="bi bi-patch-question-fill"></i></a>
           <?php endif; ?>
           <button id="menuSwitch" class="btn btn-secondary" title="Seitenbaum anzeigen" data-bs-toggle="offcanvas"
                   data-bs-target="#seitenbaumOffcanvas"><i class="bi bi-diagram-3"></i></button>
@@ -55,7 +61,7 @@
                 <?= \kmucms\Dokudoku\HtmlBasics::getView('tree', $data) ?>
               </div>
             <?php elseif ($data['type'] === 'search'): ?>
-              <form class="d-flex mb-3" method="get" action="?">
+              <form class="d-flex mb-3" method="get" action="<?=$links->getSearch()?>">
                 <div class="input-group">
                   <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                   <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
@@ -83,13 +89,13 @@
             <?php else: ?>
               <?= $data['contentHtml'] ?? '' ?>
               <div class="d-flex justify-content-between mt-4">
-                <?php if (!empty($data['prevUrl'])): ?>
-                  <a href="<?php echo $data['prevUrl']; ?>" class="btn btn-outline-primary px-4">&laquo; <?= $data['prevLabel'] ?></a>
+                <?php if (!empty($data['prevDoc'])): ?>
+                  <a href="<?php echo $links->getDoc($data['prevDoc']) ?>" class="btn btn-outline-primary px-4">&laquo; <?= $data['prevDoc'] ?></a>
                 <?php else: ?>
                   <span></span>
                 <?php endif; ?>
-                <?php if (!empty($data['nextUrl'])): ?>
-                  <a href="<?php echo $data['nextUrl']; ?>" class="btn btn-outline-primary px-4"><?= $data['nextLabel'] ?> &raquo;</a>
+                <?php if (!empty($data['nextDoc'])): ?>
+                  <a href="<?php echo $links->getDoc($data['nextDoc']); ?>" class="btn btn-outline-primary px-4"><?= $data['nextDoc'] ?> &raquo;</a>
                 <?php endif; ?>
               </div>
             <?php endif; ?>

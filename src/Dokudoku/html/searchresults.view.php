@@ -1,4 +1,7 @@
-<?php /* @var array $data */ ?>
+<?php /* @var array $data */ 
+/** @var \kmucms\Dokudoku\Links $links */
+$links = $data['links'];
+?>
 <h2>Suchergebnisse für <mark><?= htmlspecialchars($data['search']) ?></mark></h2>
 <?php if (!isset($data['results'])): ?>
   <div class="alert alert-danger">Fehler: Keine Suchdaten übergeben!</div>
@@ -6,10 +9,10 @@
   <div class="alert alert-warning">Keine Treffer gefunden.</div>
 <?php else: ?>
   <ul class="list-group mb-4">
-    <?php foreach ($data['results'] as $url): ?>
+    <?php foreach ($data['results'] as $doc): ?>
       <li class="list-group-item">
-        <a href="?doc=<?= rawurlencode($url) ?>&search=<?= urlencode($data['search']) ?>" class="text-decoration-none">
-          <?= htmlspecialchars($url) ?>
+          <a href="<?= $links->getDoc($doc)?>" class="text-decoration-none">
+          <?= htmlspecialchars($doc) ?>
         </a>
       </li>
     <?php endforeach; ?>
