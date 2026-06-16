@@ -11,5 +11,12 @@ class HtmlBasics
     return ob_get_clean();
   }
 
+  public static function escapeAttribute(string $s):string{
+    return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+  }
 
+  public static function escapeHtml(string $s): string{
+    return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+  }
+  
 }

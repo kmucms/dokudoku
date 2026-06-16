@@ -36,14 +36,14 @@ $links = $data['links'];
       <div class="container-fluid">
         <?php if (isset($data['data']['brandName'])): ?>
           <?php if (isset($data['data']['brandIcon'])): ?>
-            <img src="<?= $data['data']['brandIcon'] ?>" />
+            <img src="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['data']['brandIcon']) ?>" />
           <?php endif; ?>
-          <a class="navbar-brand fw-bold" href="<?= $data['data']['brandUrl'] ?>"><?= $data['data']['brandName'] ?></a>
+            <a class="navbar-brand fw-bold" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['data']['brandUrl']) ?>"><?= kmucms\Dokudoku\HtmlBasics::escapeHtml($data['data']['brandName']) ?></a>
         <?php endif; ?>
-        <a class="navbar-brand fw-bold" href="<?= $data['data']['urlPrefix'] ?>"><i class="bi bi-journal-bookmark"></i> </a>
+        <a class="navbar-brand fw-bold" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['data']['urlPrefix']) ?>"><i class="bi bi-journal-bookmark"></i> </a>
         <div class="d-flex ms-auto gap-2">
           <?php if ($data['data']['showHelp']): ?>
-            <a class="btn btn-secondary" href="<?=$links->getHelp()?>"><i class="bi bi-patch-question-fill"></i></a>
+            <a class="btn btn-secondary" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getHelp())?>"><i class="bi bi-patch-question-fill"></i></a>
           <?php endif; ?>
           <button id="menuSwitch" class="btn btn-secondary" title="Seitenbaum anzeigen" data-bs-toggle="offcanvas"
                   data-bs-target="#seitenbaumOffcanvas"><i class="bi bi-diagram-3"></i></button>
@@ -61,11 +61,11 @@ $links = $data['links'];
                 <?= \kmucms\Dokudoku\HtmlBasics::getView('tree', $data) ?>
               </div>
             <?php elseif ($data['type'] === 'search'): ?>
-              <form class="d-flex mb-3" method="get" action="<?=$links->getSearch()?>">
+              <form class="d-flex mb-3" method="get" action="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getSearch())?>">
                 <div class="input-group">
                   <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                   <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
-                         value="<?= htmlspecialchars($data['search'] ?? '') ?>">
+                         value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['search'] ?? '') ?>">
                 </div>
                 <button class="btn btn-outline-success ms-2" type="submit"><i class="bi bi-arrow-right-circle"></i></button>
               </form>
@@ -75,8 +75,8 @@ $links = $data['links'];
                   <ul class="list-group">
                     <?php foreach ($data['results'] as $result): ?>
                       <li class="list-group-item">
-                        <a href="?doc=<?= rawurlencode($result) ?>" class="text-decoration-none">
-                          <?= htmlspecialchars($result) ?>
+                        <a href="?doc=<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($result) ?>" class="text-decoration-none">
+                          <?= kmucms\Dokudoku\HtmlBasics::escapeHtml($result) ?>
                         </a>
                       </li>
                     <?php endforeach; ?>
@@ -90,12 +90,12 @@ $links = $data['links'];
               <?= $data['contentHtml'] ?? '' ?>
               <div class="d-flex justify-content-between mt-4">
                 <?php if (!empty($data['prevDoc'])): ?>
-                  <a href="<?php echo $links->getDoc($data['prevDoc']) ?>" class="btn btn-outline-primary px-4">&laquo; <?= $data['prevDoc'] ?></a>
+                  <a href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getDoc($data['prevDoc'])) ?>" class="btn btn-outline-primary px-4">&laquo; <?= kmucms\Dokudoku\HtmlBasics::escapeHtml($data['prevDoc']) ?></a>
                 <?php else: ?>
                   <span></span>
                 <?php endif; ?>
                 <?php if (!empty($data['nextDoc'])): ?>
-                  <a href="<?php echo $links->getDoc($data['nextDoc']); ?>" class="btn btn-outline-primary px-4"><?= $data['nextDoc'] ?> &raquo;</a>
+                  <a href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getDoc($data['nextDoc'])); ?>" class="btn btn-outline-primary px-4"><?= kmucms\Dokudoku\HtmlBasics::escapeHtml($data['nextDoc']) ?> &raquo;</a>
                 <?php endif; ?>
               </div>
             <?php endif; ?>
@@ -111,7 +111,7 @@ $links = $data['links'];
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
       </div>
       <div class="offcanvas-body">
-        <form class="d-flex mb-3" method="get" action="?">
+        <form class="d-flex mb-3" method="get" action="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getSearch())?>">
           <div class="input-group">
             <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
             <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
@@ -132,12 +132,12 @@ $links = $data['links'];
       </div>
       <div class="offcanvas-body">
         <div class="toc-card">
-          <ul><?php echo $data['tocHtml'] ?? ''; ?></ul>
+          <ul><?= $data['tocHtml'] ?? ''; ?></ul>
         </div>
       </div>
     </div>
     <?php foreach ($data['data']['js'] as $url): ?>
-      <script src="<?= $url ?>"></script>
+    <script src="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($url) ?>"></script>
     <?php endforeach; ?>
 
     <script>

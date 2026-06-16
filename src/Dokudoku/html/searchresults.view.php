@@ -2,7 +2,7 @@
 /** @var \kmucms\Dokudoku\Links $links */
 $links = $data['links'];
 ?>
-<h2>Suchergebnisse für <mark><?= htmlspecialchars($data['search']) ?></mark></h2>
+<h2>Suchergebnisse für <mark><?= kmucms\Dokudoku\HtmlBasics::escapeHtml($data['search']) ?></mark></h2>
 <?php if (!isset($data['results'])): ?>
   <div class="alert alert-danger">Fehler: Keine Suchdaten übergeben!</div>
 <?php elseif (empty($data['results'])): ?>
@@ -11,8 +11,8 @@ $links = $data['links'];
   <ul class="list-group mb-4">
     <?php foreach ($data['results'] as $doc): ?>
       <li class="list-group-item">
-          <a href="<?= $links->getDoc($doc)?>" class="text-decoration-none">
-          <?= htmlspecialchars($doc) ?>
+          <a href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getDoc($doc))?>" class="text-decoration-none">
+          <?= kmucms\Dokudoku\HtmlBasics::escapeHtml($doc) ?>
         </a>
       </li>
     <?php endforeach; ?>

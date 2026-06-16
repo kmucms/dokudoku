@@ -23,7 +23,7 @@ use kmucms\Dokudoku\HtmlBasics;
         $isOpen = !empty($node['open']);
         ?>
         <a href="#<?= $collapseId ?>" class="text-decoration-none" data-bs-toggle="collapse" role="button" aria-expanded="<?= $isOpen ? 'true' : 'false' ?>" aria-controls="<?= $collapseId ?>">
-            <i class="bi bi-folder<?= $isOpen ? '-open' : '' ?>"></i> <?= htmlspecialchars($node['name']) ?>
+            <i class="bi bi-folder<?= $isOpen ? '-open' : '' ?>"></i> <?= HtmlBasics::escapeHtml($node['name']) ?>
         </a>
         <div class="collapse<?= $isOpen ? ' show' : '' ?>" id="<?= $collapseId ?>">
             <?php if (!empty($node['children'])): ?>
@@ -36,8 +36,8 @@ use kmucms\Dokudoku\HtmlBasics;
             <?php endif; ?>
         </div>
     <?php elseif ($node['type'] === 'file'): ?>
-        <a href="<?= htmlspecialchars($links->getDoc($node['url']??''), ENT_QUOTES) ?>" class="text-decoration-none d-block w-100 h-100" style="color:inherit;">
-            <?= htmlspecialchars($node['name']) ?>
+        <a href="<?= HtmlBasics::escapeAttribute($links->getDoc($node['url']??'')) ?>" class="text-decoration-none d-block w-100 h-100" style="color:inherit;">
+            <?= HtmlBasics::escapeHtml($node['name']) ?>
         </a>
     <?php endif; ?>
 </li>

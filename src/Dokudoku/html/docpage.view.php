@@ -4,7 +4,7 @@
     <div class="toc"><ul>
       <?php foreach ($data['tocArray'] as $entry): ?>
         <li style="margin-left:<?= (int)(($entry['level']-1)*20) ?>px">
-          <a href="#<?= htmlspecialchars($entry['anchor']) ?>"><?= htmlspecialchars($entry['text']) ?></a>
+            <a href="#<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($entry['anchor']) ?>"><?= kmucms\Dokudoku\HtmlBasics::escapeHtml($entry['text']) ?></a>
         </li>
       <?php endforeach; ?>
     </ul></div>
