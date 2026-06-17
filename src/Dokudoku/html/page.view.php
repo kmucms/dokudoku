@@ -66,16 +66,16 @@ $links = $data['links'];
                   <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                   <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
                          value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['search'] ?? '') ?>">
+                  <input type="hidden" value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['env'])?>" name="env"/>
                 </div>
                 <button class="btn btn-outline-success ms-2" type="submit"><i class="bi bi-arrow-right-circle"></i></button>
               </form>
               <?php if (!empty($data['results'])): ?>
                 <div class="search-results mb-3">
-                  <h5>Suchergebnisse:</h5>
                   <ul class="list-group">
                     <?php foreach ($data['results'] as $result): ?>
                       <li class="list-group-item">
-                        <a href="?doc=<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($result) ?>" class="text-decoration-none">
+                          <a href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getDoc($result)) ?>" class="text-decoration-none">
                           <?= kmucms\Dokudoku\HtmlBasics::escapeHtml($result) ?>
                         </a>
                       </li>
@@ -83,7 +83,7 @@ $links = $data['links'];
                   </ul>
                 </div>
               <?php else: ?>
-                <div class="alert alert-warning">Keine Treffer gefunden.</div>
+                <div class="alert alert-warning"><i class="bi bi-emoji-tear-fill"></i></div>
               <?php endif; ?>
               <?= $data['contentHtml'] ?? '' ?>
             <?php else: ?>
@@ -116,6 +116,7 @@ $links = $data['links'];
             <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
             <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
                    value="">
+            <input type="hidden" value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['env'])?>" name="env"/>
           </div>
           <button class="btn btn-outline-success ms-2" type="submit"><i class="bi bi-arrow-right-circle"></i></button>
         </form>
