@@ -12,6 +12,7 @@ class DokuDoku {
     'brandIcon' => '',
     'seoLinks' => false,
     'showHelp' => true,
+    'lang' => 'en',  
     'css' => [
       "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css",
       "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
@@ -61,6 +62,10 @@ class DokuDoku {
     $this->data['brandName'] = $name;
     $this->data['brandUrl'] = $brandUrl;
     $this->data['brandIcon'] = $iconUrl;
+  }
+  
+  public function setShowHelp(bool $bool): void{
+      $this->data['showHelp'] = $bool;
   }
 
   public function setDoSeoLinks(bool $val): void {

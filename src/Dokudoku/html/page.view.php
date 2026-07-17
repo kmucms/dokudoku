@@ -5,7 +5,7 @@ $links = $data['links'];
 ?>
 
 <!DOCTYPE html>
-<html lang="de" >
+<html lang="<?=$data['data']['lang']??'en'?>" >
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,6 +42,11 @@ $links = $data['links'];
         <?php endif; ?>
         <a class="navbar-brand fw-bold" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['data']['urlPrefix']) ?>"><i class="bi bi-journal-bookmark"></i> </a>
         <div class="d-flex ms-auto gap-2">
+          <?php foreach($data['data']['mdDocsPaths'] as $item):?>
+            <?php if ($item['name'] != 'dokudokuhelp'): ?>
+              <a class="btn btn-secondary" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getEnvHome($item['name']))?>"><i class="bi bi-bookmark"></i></a>
+            <?php endif; ?>
+          <?php endforeach; ?>  
           <?php if ($data['data']['showHelp']): ?>
             <a class="btn btn-secondary" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getHelp())?>"><i class="bi bi-patch-question-fill"></i></a>
           <?php endif; ?>
@@ -64,7 +69,7 @@ $links = $data['links'];
               <form class="d-flex mb-3" method="get" action="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getSearch())?>">
                 <div class="input-group">
                   <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                  <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
+                  <input class="form-control search-input" type="search" name="search" placeholder="..." aria-label=""
                          value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['search'] ?? '') ?>">
                   <input type="hidden" value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['env'])?>" name="env"/>
                 </div>
@@ -114,7 +119,7 @@ $links = $data['links'];
         <form class="d-flex mb-3" method="get" action="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getSearch())?>">
           <div class="input-group">
             <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-            <input class="form-control search-input" type="search" name="search" placeholder="Suche..." aria-label="Suche"
+            <input class="form-control search-input" type="search" name="search" placeholder="..." aria-label=""
                    value="">
             <input type="hidden" value="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($data['env'])?>" name="env"/>
           </div>
