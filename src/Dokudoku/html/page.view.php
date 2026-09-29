@@ -50,9 +50,9 @@ $links = $data['links'];
           <?php if ($data['data']['showHelp']): ?>
             <a class="btn btn-secondary" href="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getHelp())?>"><i class="bi bi-patch-question-fill"></i></a>
           <?php endif; ?>
-          <button id="menuSwitch" class="btn btn-secondary" title="Seitenbaum anzeigen" data-bs-toggle="offcanvas"
-                  data-bs-target="#seitenbaumOffcanvas"><i class="bi bi-diagram-3"></i></button>
-          <button id="tocBtn" class="btn btn-secondary" title="Inhaltsverzeichnis" data-bs-toggle="offcanvas"
+          <button id="menuSwitch" class="btn btn-secondary" title="Pages Tree" data-bs-toggle="offcanvas"
+                  data-bs-target="#pagestreeOffcanvas"><i class="bi bi-diagram-3"></i></button>
+          <button id="tocBtn" class="btn btn-secondary" title="Page Headers" data-bs-toggle="offcanvas"
                   data-bs-target="#tocOffcanvas"><i class="bi bi-list-columns"></i></button>
         </div>
       </div>
@@ -109,11 +109,11 @@ $links = $data['links'];
 
       </div>
     </div>
-    <!-- Seitenbaum Offcanvas -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="seitenbaumOffcanvas" aria-labelledby="seitenbaumLabel">
+    <!-- Pagestree Offcanvas -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="pagestreeOffcanvas" aria-labelledby="pagestreeLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="seitenbaumLabel"><i class="bi bi-diagram-3"></i> <!--Seitenbaum --></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
+        <h5 class="offcanvas-title" id="pagestreeLabel"><i class="bi bi-diagram-3"></i> <!--Pagestree --></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <form class="d-flex mb-3" method="get" action="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($links->getSearch())?>">
@@ -134,7 +134,7 @@ $links = $data['links'];
     <div class="offcanvas offcanvas-end" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="tocLabel"><i class="bi bi-list-columns"></i> <!-- Inhaltsverzeichnis --></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <div class="toc-card">
