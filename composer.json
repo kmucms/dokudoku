@@ -8,6 +8,7 @@
 			"kmucms\\Dokudoku\\" : "src/Dokudoku/"
 		}
 	},
+        "license": "MIT",
 	"name" : "kmucms/dokudoku",
 	"description" : "dokumenting software architecture"
 }
