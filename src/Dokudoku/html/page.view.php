@@ -110,7 +110,7 @@ $links = $data['links'];
       </div>
     </div>
     
-    <?= $data['footerHtml'] ?? '' ?>
+    <?= $data['data']['footerHtml'] ?? '' ?>
     
     <!-- Pagestree Offcanvas -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="pagestreeOffcanvas" aria-labelledby="pagestreeLabel">

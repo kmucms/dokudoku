@@ -4,4 +4,5 @@ $d = new \kmucms\Dokudoku\DokuDoku(); // create new instance
 $d->setMdDocsPath(__DIR__ . '/docsmd/'); // *important* provide path with md-files
 $d->setMdDocsPathEnv(__DIR__ . '/docsmd2/', 'alt');
 $d->setShowHelp(true);
+$d->setFooterHtml('');
 $d->go();
