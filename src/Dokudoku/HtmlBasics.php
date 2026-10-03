@@ -11,6 +11,15 @@ class HtmlBasics
     return ob_get_clean();
   }
 
+  
+   public static function getFileStr(string $filename, array $data = []): string{
+    ob_start();
+    require $viewName;
+    return ob_get_clean();
+  }
+
+ 
+  
   public static function escapeAttribute(string $s):string{
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
   }
