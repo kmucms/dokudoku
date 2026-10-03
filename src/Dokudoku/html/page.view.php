@@ -109,6 +109,9 @@ $links = $data['links'];
 
       </div>
     </div>
+    
+    <?= $data['footerHtml'] ?? '' ?>
+    
     <!-- Pagestree Offcanvas -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="pagestreeOffcanvas" aria-labelledby="pagestreeLabel">
       <div class="offcanvas-header">
@@ -143,7 +146,6 @@ $links = $data['links'];
       </div>
     </div>
     
-    <?= $data['footerHtml'] ?? '' ?>
     
     <?php foreach ($data['data']['js'] as $url): ?>
     <script src="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($url) ?>"></script>
