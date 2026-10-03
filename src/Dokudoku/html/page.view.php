@@ -142,6 +142,9 @@ $links = $data['links'];
         </div>
       </div>
     </div>
+    
+    <?= $data['footerHtml'] ?? '' ?>
+    
     <?php foreach ($data['data']['js'] as $url): ?>
     <script src="<?= kmucms\Dokudoku\HtmlBasics::escapeAttribute($url) ?>"></script>
     <?php endforeach; ?>

@@ -13,6 +13,7 @@ class DokuDoku {
     'seoLinks' => false,
     'showHelp' => true,
     'lang' => 'en',  
+    'footerHtml' => '',
     'css' => [
       "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css",
       "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
@@ -70,6 +71,10 @@ class DokuDoku {
 
   public function setDoSeoLinks(bool $val): void {
     $this->data['seoLinks'] = $val;
+  }
+  
+  public function setFooterHtml(string $html): void {
+    $this->data['footerHtml'] = $html;
   }
 
   public function go(): void {
