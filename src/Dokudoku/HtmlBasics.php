@@ -14,7 +14,7 @@ class HtmlBasics
   
    public static function getFileStr(string $filename, array $data = []): string{
     ob_start();
-    require $viewName;
+    require $filename;
     return ob_get_clean();
   }
 
