@@ -18,28 +18,29 @@ class DocPageTree
 
     private function scanDir(string $dir, string $prefix): array
     {
-        $items = scandir($dir);
+        $items = new \FilesystemIterator($dir, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::KEY_AS_PATHNAME);
         $entries = [];
         foreach ($items as $item) {
-            if ($item === '.' || $item === '..') continue;
-            $path = $dir . DIRECTORY_SEPARATOR . $item;
-            $url = $prefix . preg_replace('/^\d+_?/', '', $item);
-            $url = str_replace("\\", '/', $url); // Für Linux-Kompatibilität
-            if (is_dir($path)) {
+            /* @var /SplFileInfo $item */
+            $fileName = $item->getFilename();
+            $path = $item->getPathname();
+            $url = $prefix . preg_replace('/^\d+_?/', '', $fileName);
+            $url = str_replace("\\", '/', $url);   
+            if ($item->isDir()) {
                 $entries[] = [
                     'type' => 'dir',
-                    'name' =>  preg_replace('/^\d+_?/', '', $item),
+                    'name' =>  preg_replace('/^\d+_?/', '', $fileName),
                     'url' => $url . '/',
                     'children' => $this->scanDir($path, $url . '/'),
-                    'raw' => $item
+                    'raw' => $fileName
                 ];
-            } elseif (strtolower(pathinfo($item, PATHINFO_EXTENSION)) === 'md') {
-                $url = substr($url, 0, -strlen('.md')); //.'.html'; // .md durch .html ersetzen
+            } elseif (strtolower(pathinfo($fileName, PATHINFO_EXTENSION)) === 'md') {
+                $url = substr($url, 0, -strlen('.md')); //.'.html'; // .md replace by .html
                 $entries[] = [
                     'type' => 'file',
-                    'name' => preg_replace('/^\d+_?/', '', pathinfo($item, PATHINFO_FILENAME)),
+                    'name' => preg_replace('/^\d+_?/', '', pathinfo($fileName, PATHINFO_FILENAME)),
                     'url' => $url,
-                    'raw' => $item
+                    'raw' => $fileName
                 ];
                 $this->flatMap[$url] = $path;
             }
