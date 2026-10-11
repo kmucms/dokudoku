@@ -132,4 +132,7 @@ class DokuDoku {
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     }
   }
+  public function setLanguage(string $lang): void{
+      $this->data['lang'] = $lang;
+  }
 }
