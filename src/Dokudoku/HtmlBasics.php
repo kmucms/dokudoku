@@ -25,8 +25,7 @@ class HtmlBasics
   }
 
   public static function escapeHtml(string $s): string{
-    $decodedName = rawurldecode($s);
-    return htmlspecialchars($decodedName, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+    return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
   }
   
 }
