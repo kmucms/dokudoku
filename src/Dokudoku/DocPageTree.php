@@ -8,11 +8,13 @@ class DocPageTree
     private $urlPrefix;
     private $tree = [];
     private $flatMap = [];
+    private $data = [];
 
-    public function __construct(string $mdDocsPath, string $urlPrefix)
+    public function __construct(string $mdDocsPath, string $urlPrefix, $options=[])
     {
         $this->mdDocsPath = rtrim($mdDocsPath, '/\\');
         $this->urlPrefix = $urlPrefix;
+        $this->data = $options;
         $this->tree = $this->scanDir($this->mdDocsPath, '');
     }
 
@@ -24,8 +26,12 @@ class DocPageTree
             /* @var /SplFileInfo $item */
             $fileName = $item->getFilename();
             $path = $item->getPathname();
+            if ($this->data['fileSystemEncoding'] !== '') {
+                $fileName = mb_convert_encoding($fileName, 'UTF-8', $this->data['fileSystemEncoding']);
+                $path = mb_convert_encoding($path, 'UTF-8', $this->data['fileSystemEncoding']);
+            }
             $url = $prefix . preg_replace('/^\d+_?/', '', $fileName);
-            $url = str_replace("\\", '/', $url);   
+            $url = str_replace("\\", '/', $url);
             if ($item->isDir()) {
                 $entries[] = [
                     'type' => 'dir',
@@ -92,7 +98,7 @@ class DocPageTree
     {
         return $this->flatMap;
     }
-    
+
     public function getPrevDoc(string $mdFile): string
     {
         $urls = array_keys($this->flatMap);
@@ -112,7 +118,7 @@ class DocPageTree
         }
         return '';
     }
-    
+
     /**
      * @param string $search
      * @return array

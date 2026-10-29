@@ -13,6 +13,7 @@ class DokuDoku {
     'seoLinks' => false,
     'showHelp' => true,
     'lang' => 'en',  
+    'fileSystemEncoding' => '', //CP1252
     'footerHtml' => '',
     'css' => [
       "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css",
@@ -76,6 +77,10 @@ class DokuDoku {
   public function setFooterHtml(string $html): void {
     $this->data['footerHtml'] = $html;
   }
+  
+  public function fileSystemEncoding(string $encoding) {
+    $this->data['fileSystemEncoding'] = $encoding;  
+  }
 
   public function go(): void {
     $doc = $_GET['doc'] ?? '';
@@ -98,7 +103,7 @@ class DokuDoku {
     $data['links'] = $links;
     
     if ($search !== '') {
-      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
+      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix, $this->data);
       $data['type'] = 'search';
       $data['treeArray'] = $pt->getTree($doc);
       $data['results'] = $pt->getSearchResultArray($search);
@@ -108,7 +113,7 @@ class DokuDoku {
       $data['search'] = $search;
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     } elseif ($doc !== '') {
-      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
+      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix, $this->data);
       $pv = new \kmucms\Dokudoku\DocPageView($mdDocsPath, $urlPrefix);
       $flatMap = $pt->getFlatMap();
       $data['type'] = 'doc';
@@ -126,7 +131,7 @@ class DokuDoku {
       $data['nextDoc'] = $pt->getNextDoc($doc);
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     } else {
-      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix);
+      $pt = new \kmucms\Dokudoku\DocPageTree($mdDocsPath, $urlPrefix, $this->data);
       $data['type'] = 'home';
       $data['treeArray'] = $pt->getTree('');
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
