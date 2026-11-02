@@ -78,7 +78,7 @@ class DokuDoku {
     $this->data['footerHtml'] = $html;
   }
   
-  public function fileSystemEncoding(string $encoding) {
+  public function setFileSystemEncoding(string $encoding) {
     $this->data['fileSystemEncoding'] = $encoding;  
   }
 
