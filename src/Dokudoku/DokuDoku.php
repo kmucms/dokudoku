@@ -22,7 +22,7 @@ class DokuDoku {
     ],
     'js' => [
       "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
-      "https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js",
+      "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.min.js",
       "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js",
       "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js",
       "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-clike.min.js",
