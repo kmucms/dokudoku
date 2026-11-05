@@ -81,6 +81,14 @@ class DokuDoku {
   public function setFileSystemEncoding(string $encoding) {
     $this->data['fileSystemEncoding'] = $encoding;  
   }
+  
+  public function setLanguage(string $lang): void{
+      $this->data['lang'] = $lang;
+  }
+  
+  public function addCss(string $url): void{
+      $this->data['css'][] = $url;
+  }
 
   public function go(): void {
     $doc = $_GET['doc'] ?? '';
@@ -137,7 +145,5 @@ class DokuDoku {
       echo \kmucms\Dokudoku\HtmlBasics::getView('page', $data);
     }
   }
-  public function setLanguage(string $lang): void{
-      $this->data['lang'] = $lang;
-  }
+
 }
