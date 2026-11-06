@@ -22,21 +22,26 @@ class Links {
 
   public function getSearch(string $search = ''): string {
     $par = [
-      'env' => $this->env,
       'search' => $search,
     ];
-    return '?' . http_build_query($par);
+    return '?' . http_build_query($this->addEnv($par));
   }
 
   public function getDoc(string $document): string {
     $par = [
-      'env' => $this->env,
       'doc' => $document,
     ];
-    return '?' . http_build_query($par);
+    return '?' . http_build_query($this->addEnv($par));
   }
 
   public function getHelp(): string {
     return '?help=1';
+  }
+
+  private function addEnv(array $par): array {
+    if ($this->env != '') {
+      $par['env'] = $this->env;
+    }
+    return $par;
   }
 }
